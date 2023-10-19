@@ -15,8 +15,8 @@
     "canbus": null
   },
   "encoder": {
-    "type": "none",
-    "id": 42,
+    "type": "attached",
+    "id": 0,
     "canbus": null
   },
   "inverted": {

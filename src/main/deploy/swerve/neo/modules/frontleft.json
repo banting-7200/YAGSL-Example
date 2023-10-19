@@ -15,12 +15,12 @@
     "canbus": null
   },
   "encoder": {
-    "type": "throughbore",
-    "id": 12,
+    "type": "attached",
+    "id": 0,
     "canbus": null
   },
   "inverted": {
-    "drive": false,
+    "drive": true,
     "angle": false
   }
 }
