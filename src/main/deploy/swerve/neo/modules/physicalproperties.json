@@ -1,6 +1,6 @@
 {
   "wheelDiameter": 4.125,
-  "wheelGripCoefficientOfFriction": 1.19,
+  "wheelGripCoefficientOfFriction": 1.0,
   "gearRatio": {
     "drive": 7.332,
     "angle": 1
