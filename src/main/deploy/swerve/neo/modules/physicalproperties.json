@@ -1,6 +1,6 @@
 {
   "wheelDiameter": 4.125,
-  "wheelGripCoefficientOfFriction": 1.0,
+  "wheelGripCoefficientOfFriction": 0.8,
   "gearRatio": {
     "drive": 7.332,
     "angle": 1
@@ -10,7 +10,7 @@
     "angle": 20
   },
   "rampRate": {
-    "drive": 0.75,
+    "drive": 0.25,
     "angle": 0.25
   },
   "encoderPulsePerRotation": {
