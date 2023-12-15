@@ -1,82 +1,44 @@
-# Yet Another Generic Swerve Library (YAGSL) Example project
+#DRIVE
+ - `p` 
+	 -  Coefficient Of Friction @ 0.6
+		 - 0.05
+			 - A little faster, not oscillating
+		 - 0.1
+			 - Feels fine, not oscillating
+		 - 0.2
+			 - Feels, fine, not oscillating
+		 - 0.5
+			 - Starting to wabble, oscillating a bit
+		 - 0.25
+			 - Better, slight wabble
+		 - 0.225
+			 - Better, slight wabble but faster at autocorrect, still not perfect though
+	  - Coefficient of Friction @ 1
+		 - 0.2125
+			 - Wheels skipping, no wabble though
+	 - Coefficient of Friction @ 2
+		 - 0.2125
+			 - Still skipping, no wabble
+ - `i`
+	- Nothing to change, seems like we don't really need to change the i value.
+- `d`
+	- Coefficient of Friction @ 2 p - 0.2125
+		- 1
+			- Less control
+		- 0.5
+			- "Still doesn't feel right" - Head Driver, less control
+		- 0.25
+			- Feels good, let's take it down a little more
+		- 0.125
+			- Even better, surprisingly
+#ANGLE
 
-YAGSL is intended to be an easy implementation of a generic swerve drive that should work for most
-square swerve drives. The project is documented
-on [here](https://github.com/BroncBotz3481/YAGSL/wiki). The JSON documentation can also be
-found [here](docs/START.md)
+Nothing in the #ANGLE section was changed for this tuning session
 
-This example is intended to be a starting place on how to use YAGSL. By no means is this intended to
-be the base of your robot project. YAGSL provides an easy way to generate a SwerveDrive which can be
-used in both TimedRobot and Command-Based Robot templates.
+#CONCLUSION
 
-# Overview
+Seems like a lower `p` value under the #DRIVE section in the `json` files seems to allow it to  drive a lot better. During our testing due to the surface we were driving on, the robot seemed to have been skipping a lot and we found out that it was a result of the actual floor and not the code itself. Great testing!
 
-### Installation
 
-Vendor URL:
 
-```
-https://broncbotz3481.github.io/YAGSL-Lib/yagsl/yagsl.json
-```
-
-[Javadocs here](https://broncbotz3481.github.io/YAGSL/)  
-[Library here](https://github.com/BroncBotz3481/YAGSL/)  
-[Code here](https://github.com/BroncBotz3481/YAGSL/tree/main/swervelib)  
-[WIKI](https://github.com/BroncBotz3481/YAGSL/wiki)  
-[Config Generation](https://broncbotz3481.github.io/YAGSL-Example/)
-
-# Create an issue if there is any errors you find!
-
-We will be actively montoring this and fix any issues when we can!
-
-## Development
-
-* Development happens here on `YAGSL-Example`. `YAGSL` and `YAGSL-Lib` are updated on a nightly
-  basis.
-
-### TL;DR Generate and download your configuration [here](https://broncbotz3481.github.io/YAGSL-Example/) and unzip it so that it follows structure below:
-
-```text
-deploy
-└── swerve
-    ├── controllerproperties.json
-    ├── modules
-    │   ├── backleft.json
-    │   ├── backright.json
-    │   ├── frontleft.json
-    │   ├── frontright.json
-    │   ├── physicalproperties.json
-    │   └── pidfproperties.json
-    └── swervedrive.json
-```
-
-### Then create your SwerveDrive object like this.
-
-```java
-import java.io.File;
-import edu.wpi.first.wpilibj.Filesystem;
-import swervelib.parser.SwerveParser;
-import swervelib.SwerveDrive;
-
-File swerveJsonDirectory=new File(Filesystem.getDeployDirectory(),"swerve");
-    SwerveDrive swerveDrive=new SwerveParser(swerveJsonDirectory).createSwerveDrive();
-```
-
-### Falcon Support would not have been possible without support from Team 1466 Webb Robotics!
-
-# Configuration Tips
-
-### My Robot Spins around uncontrollably during autonomous or when attempting to set the heading!
-
-* Invert the gyro scope.
-* Invert the drive motors for every module. (If front and back become reversed when turning)
-
-### Angle motors are erratic.
-
-* Invert the angle motor.
-
-### My robot is heavy.
-
-* Implement momentum velocity limitations in SwerveMath.
-
-### Ensure the IMU is centered on the robot
+ 
