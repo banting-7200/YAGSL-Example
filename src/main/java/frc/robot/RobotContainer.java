@@ -21,6 +21,10 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+import com.pathplanner.lib.auto.PIDConstants;
+import frc.robot.Constants.Auton;
+import java.util.HashMap;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -40,6 +44,7 @@ public class RobotContainer
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   XboxController driverXbox = new XboxController(0);
 
+  SwerveAutoBuilder autoBuilder;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -80,6 +85,25 @@ public class RobotContainer
         () -> -driverController.getRawAxis(3), () -> true, false, false);
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
+
+    HashMap<String, Command> eventMap = new HashMap<>();
+     autoBuilder = new SwerveAutoBuilder(
+      drivebase::getPose,
+// Pose2d supplier
+drivebase::resetOdometry,
+// Pose2d consumer, used to reset odometry at the beginning of auto
+          new PIDConstants(Auton.yAutoPID.p, Auton.yAutoPID.i, Auton.yAutoPID.d),
+// PID constants to correct for translation error (used to create the X and Y PID controllers)
+          new PIDConstants(Auton.angleAutoPID.p, Auton.angleAutoPID.i, Auton.angleAutoPID.d),
+// PID constants to correct for rotation error (used to create the rotation controller)
+drivebase::setChassisSpeeds,
+// Module states consumer used to output to the drive subsystem
+          eventMap,
+          false,
+// Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+drivebase
+// The drive subsystem. Used to properly set the requirements of path following commands
+      );
   }
 
   /**
@@ -106,7 +130,7 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(drivebase);
+    return Autos.TestAuto(drivebase, autoBuilder);
   }
 
   public void setDriveMode()

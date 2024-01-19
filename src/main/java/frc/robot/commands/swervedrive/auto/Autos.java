@@ -47,7 +47,21 @@ public final class Autos
   /**
    * Example static factory for an autonomous command.
    */
-  public static CommandBase exampleAuto(SwerveSubsystem swerve)
+public static CommandBase TestAuto (SwerveSubsystem swerve, SwerveAutoBuilder autoBuilder)
+{
+  List<PathPlannerTrajectory> example1 = PathPlanner.loadPathGroup("Straight Line", new PathConstraints(4, 3));
+  // This is just an example event map. It would be better to have a constant, global event map
+  // in your code that will be used by all path following commands.
+  //HashMap<String, Command> eventMap = new HashMap<>();
+  //eventMap.put("marker1", new PrintCommand("Passed marker 1"));
+
+  // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want
+  // to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
+ 
+  return Commands.sequence(autoBuilder.fullAuto(example1));
+}
+
+  public static CommandBase exampleAuto(SwerveSubsystem swerve, SwerveAutoBuilder autoBuilder)
   {
     boolean               onTheFly = false; // Use the path defined in code or loaded from PathPlanner.
     PathPlannerTrajectory example;
@@ -65,31 +79,15 @@ public final class Autos
                                         );
     } else
     {
-      List<PathPlannerTrajectory> example1 = PathPlanner.loadPathGroup("SamplePath", new PathConstraints(4, 3));
+      List<PathPlannerTrajectory> example1 = PathPlanner.loadPathGroup("Straight Line", new PathConstraints(4, 3));
       // This is just an example event map. It would be better to have a constant, global event map
       // in your code that will be used by all path following commands.
-      HashMap<String, Command> eventMap = new HashMap<>();
-      eventMap.put("marker1", new PrintCommand("Passed marker 1"));
+      //HashMap<String, Command> eventMap = new HashMap<>();
+      //eventMap.put("marker1", new PrintCommand("Passed marker 1"));
 
       // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want
       // to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
-      SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
-          swerve::getPose,
-// Pose2d supplier
-          swerve::resetOdometry,
-// Pose2d consumer, used to reset odometry at the beginning of auto
-          new PIDConstants(Auton.yAutoPID.p, Auton.yAutoPID.i, Auton.yAutoPID.d),
-// PID constants to correct for translation error (used to create the X and Y PID controllers)
-          new PIDConstants(Auton.angleAutoPID.p, Auton.angleAutoPID.i, Auton.angleAutoPID.d),
-// PID constants to correct for rotation error (used to create the rotation controller)
-          swerve::setChassisSpeeds,
-// Module states consumer used to output to the drive subsystem
-          eventMap,
-          false,
-// Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-          swerve
-// The drive subsystem. Used to properly set the requirements of path following commands
-      );
+     
       return Commands.sequence(autoBuilder.fullAuto(example1));
     }
 //    swerve.postTrajectory(example);
