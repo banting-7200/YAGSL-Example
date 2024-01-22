@@ -44,23 +44,30 @@ public final class Autos
         new RepeatCommand(new InstantCommand(() -> swerve.drive(new Translation2d(1, 0), 5, true, true), swerve)));
   }
 
-  /**
-   * Example static factory for an autonomous command.
-   */
+ 
 public static CommandBase TestAuto (SwerveSubsystem swerve, SwerveAutoBuilder autoBuilder)
 {
-  List<PathPlannerTrajectory> example1 = PathPlanner.loadPathGroup("Straight Line", new PathConstraints(4, 3));
+  List<PathPlannerTrajectory> line = PathPlanner.loadPathGroup("Straight Line", new PathConstraints(4, 3));
   // This is just an example event map. It would be better to have a constant, global event map
   // in your code that will be used by all path following commands.
   //HashMap<String, Command> eventMap = new HashMap<>();
   //eventMap.put("marker1", new PrintCommand("Passed marker 1"));
-
+  PathPlannerTrajectory example = line.get(0);
   // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want
   // to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
  
-  return Commands.sequence(autoBuilder.fullAuto(example1));
+  //return Commands.sequence(autoBuilder.fullAuto(line));
+  return Commands.sequence(new FollowTrajectory(swerve, example, true));
+  /*
+   * To Try:
+   * feed example into fullAuto function
+   * run fullAuto with line
+   * run example auto to see if it works
+   */
 }
-
+ /**
+   * Example static factory for an autonomous command.
+   */
   public static CommandBase exampleAuto(SwerveSubsystem swerve, SwerveAutoBuilder autoBuilder)
   {
     boolean               onTheFly = false; // Use the path defined in code or loaded from PathPlanner.
