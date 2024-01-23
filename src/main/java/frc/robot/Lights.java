@@ -28,6 +28,9 @@ public class Lights {
         statusLights.setLength(stringLength);
         statusLights.start();
     }
+    
+    //Singleton instance of lights to call in other classes. 
+    Lights instance = new Lights(0, 0);// port and length still nedd to be filled as they are unknowns right now. 
 
     public void SetLightState(lightStates stateToSet) {
         switch (stateToSet) {

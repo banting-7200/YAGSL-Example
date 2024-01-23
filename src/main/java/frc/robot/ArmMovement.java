@@ -10,7 +10,7 @@ public class ArmMovement {
     double m_speed = 0.8;  //-1.0 to 1.0    motor speed 
     double a_speed = 0.2; //-1.0 to 1.0     arm speed
     
-    double shootRPM;
+    double shootRPM = 2800;
     double intakeRPM;
 
 
@@ -19,7 +19,7 @@ public class ArmMovement {
     public void intake(){ 
         m_intake = new WPI_VictorSPX(3); 
         
-        double m_velocity = 2048 / intakeRPM / 600;
+        double m_velocity = 2048 / intakeRPM / 600;// This math converts the desired rpm to a motor velocity(supposedly)
         m_intake.set(ControlMode.Velocity, m_velocity);
 
         //intake till prox sensor says stop 
@@ -29,7 +29,7 @@ public class ArmMovement {
     public void shoot(){ 
         m_shoot = new WPI_VictorSPX(4); 
         
-        double m_velocity = 2048 / shootRPM / 600;
+        double m_velocity = 2048 / shootRPM / 600;// This math converts the desired rpm to a motor velocity(supposedly)
         m_shoot.set(ControlMode.Velocity, m_velocity);
 
         //shoot till prox sensor says stop 
