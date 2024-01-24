@@ -46,7 +46,8 @@ public class Robot extends TimedRobot
   public void robotInit()
   {
     PathPlannerServer.startServer(5811);
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    System.out.println("This is so slaytastic");
+        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
